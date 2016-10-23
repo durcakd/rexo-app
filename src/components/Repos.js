@@ -1,6 +1,5 @@
 import React from 'react'
 import NavLink from './NavLink'
-import { browserHistory } from 'react-router'
 
 
 export default React.createClass({

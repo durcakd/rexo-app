@@ -49,6 +49,7 @@ const store = createStore(
 )
 
 
+
 var currentUsername = store.getState().user.username
 store.subscribe(() => {
   let previousUsername = currentUsername
@@ -62,6 +63,11 @@ store.subscribe(() => {
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store)
+
+if (!store.getState().user.loggedIn) {
+  console.log('METHOD: APP componentWillReceiveProps  redirect')
+  browserHistory.push('/login')
+}
 
 render(
   <Provider store={store}>

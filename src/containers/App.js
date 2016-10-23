@@ -5,9 +5,16 @@ import TestComponent from '../components/TestComponent'
 import NavLink from '../components/NavLink'
 
 class App extends Component {
+
+ //  constructor(props, context){
+ //   super(props);
+ //   context.router // will work
+ // }
+
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    testMsg: PropTypes.string.isRequired
+    testMsg: PropTypes.string.isRequired,
+    loggedIn: PropTypes.bool.isRequired
   }
 
   componentDidMount() {
@@ -47,9 +54,14 @@ class App extends Component {
   }
 }
 
+// App.contextTypes = {
+//     router: React.PropTypes.object.isRequired
+// };
+
 const mapStateToProps = state => {
   return {
-    testMsg: state.testReducer.testData || 'Hello world'
+    testMsg: state.testReducer.testData || 'Hello world',
+    loggedIn: state.user.loggedIn
   }
 }
 

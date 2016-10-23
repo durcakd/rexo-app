@@ -35,9 +35,9 @@ class Login extends Component {
     return (
       <div>
         {loggedIn ?
-          <h4> Logged as user: {username} </h4> :
+          <h4> Logged as user: {username} </h4> : null}
           <LoginForm onSubmit={this.handleLoginSubmit} />
-        }
+        
       </div>
     )
   }
