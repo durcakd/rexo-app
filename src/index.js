@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, browserHistory } from 'react-router'
+import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
@@ -9,7 +9,11 @@ import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 import reducer from './reducers'
 import App from './containers/App'
-import Login from './containers/Login';
+import Login from './containers/Login'
+import About from './components/About'
+import Repos from './components/Repos'
+import Repo from './components/Repo'
+import Home from './components/Home'
 
 
 const middleware = [ thunk ]
@@ -63,8 +67,14 @@ render(
   <Provider store={store}>
     { /* Tell the Router to use our enhanced history */ }
     <Router history={history}>
-      <Route path="/" component={App}/>
-      <Route path="/login" component={Login}/>
+      <Route path="/" component={App}>
+        <IndexRoute component={Home}/>
+        <Route path="/about" component={About}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/repos" component={Repos}>
+          <Route path="/repos/:userName/:repoName" component={Repo}/>
+        </Route>
+      </Route>
     </Router>
   </Provider>,
   document.getElementById('root')
