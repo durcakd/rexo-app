@@ -15,6 +15,12 @@ import Repos from './components/Repos'
 import Repo from './components/Repo'
 import Home from './components/Home'
 
+import DocProcessingMenu from './components/DocProcessingMenu'
+import BatchDocGenerating from './containers/business/BatchDocGenerating'
+import LawsuitsPlaning from './containers/business/LawsuitsPlaning'
+import PdfGenerating from './containers/business/PdfGenerating'
+
+
 
 const middleware = [ thunk ]
 if (process.env.NODE_ENV !== 'production') {
@@ -79,6 +85,11 @@ render(
         <Route path="/login" component={Login}/>
         <Route path="/repos" component={Repos}>
           <Route path="/repos/:userName/:repoName" component={Repo}/>
+        </Route>
+        <Route path="/doc-process" component={DocProcessingMenu}>
+          <Route path="/doc-process/batch-document-generating" component={BatchDocGenerating}/>
+          <Route path="/doc-process/lawsuits-planing" component={LawsuitsPlaning}/>
+          <Route path="/doc-process/pdf-generating" component={PdfGenerating}/>
         </Route>
       </Route>
     </Router>

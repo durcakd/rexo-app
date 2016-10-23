@@ -41,10 +41,9 @@ class App extends Component {
           <li><NavLink to="/about">About</NavLink></li>
           <li><NavLink to="/login">Login</NavLink></li>
           <li><NavLink to="/repos">Repos</NavLink></li>
+          <li><NavLink to="/doc-process">Document Processing</NavLink></li>
         </ul>
         <h1>Rexotech main page</h1>
-        <TestComponent msg={testMsg}/>
-        <button onClick={this.handleChange}>change</button>
         {this.props.children}
       </div>
 
