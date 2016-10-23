@@ -1,11 +1,16 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore, applyMiddleware } from 'redux'
+import { Router, Route, browserHistory } from 'react-router'
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
+import { reducer as formReducer } from 'redux-form'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 import reducer from './reducers'
 import App from './containers/App'
+import Login from './containers/Login';
+
 
 const middleware = [ thunk ]
 if (process.env.NODE_ENV !== 'production') {
@@ -30,7 +35,11 @@ var initialState = { user }
 
 
 const store = createStore(
-  reducer,
+  combineReducers({
+    ...reducer,
+    form: formReducer,
+    routing: routerReducer
+  }),
   initialState,
   applyMiddleware(...middleware)
 )
@@ -47,10 +56,16 @@ store.subscribe(() => {
   }
 })
 
+// Create an enhanced history that syncs navigation events with the store
+const history = syncHistoryWithStore(browserHistory, store)
 
 render(
   <Provider store={store}>
-    <App />
+    { /* Tell the Router to use our enhanced history */ }
+    <Router history={history}>
+      <Route path="/" component={App}/>
+      <Route path="/login" component={Login}/>
+    </Router>
   </Provider>,
   document.getElementById('root')
 )

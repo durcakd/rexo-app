@@ -1,5 +1,4 @@
-import { combineReducers } from 'redux'
-import { reducer as formReducer } from 'redux-form'
+
 
 import { TEST_ACTION } from '../actions'
 
@@ -44,10 +43,9 @@ const user = (state = {
   }
 }
 
-const rootReducer = combineReducers({
+const rootReducer = {
   user,
-  testReducer,
-  form: formReducer
-})
+  testReducer
+}
 
 export default rootReducer
