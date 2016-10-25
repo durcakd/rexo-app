@@ -1,7 +1,10 @@
+import 'whatwg-fetch';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_REQUEST_SUCCESS = 'LOGIN_REQUEST_SUCCESS'
 export const LOGIN_REQUEST_FAILED = 'LOGIN_REQUEST_FAILED'
+
+import {CTX_HOST} from '../config'
 
 const loginRequest = () => ({
   type: LOGIN_REQUEST
@@ -20,37 +23,33 @@ export const loginRequestFailed = (username) => ({
   username
 })
 
-export const login = (username, password) => dispatch => {
+export const login = (username, password, onSuccess, onError) => dispatch => {
+    //dispatch(loginRequest()) // TODO
 
-    // We use this to update the store state of `isLoggingIn`
-    // which can be used to display an activity indicator on the login
-    // view.
-    dispatch(loginRequest())
-
-    // Note: This base64 encode method only works in NodeJS, so use an
-    // implementation that works for your platform:
-    // `base64-js` for React Native,
-    // `btoa()` for browsers, etc...
-
+    const url = CTX_HOST+'/session/login';
     const hash = new Buffer(`${username}:${password}`).toString('base64')
-    return fetch('https://rexo.rextech.sk/session/login', {
-      headers: {
-        'Authorization': `Basic ${hash}`
-      },
+    var request = new Request(url, {
+      headers: new Headers({
+        'Authorization': `Basic ${hash}`,
+      }),
       credentials: 'include',
-      mode: 'no-cors'
-    }).then(function(response) {
-      console.log(response);
-      if (response.type === 'opaque' || response.ok) {
+      //mode: 'cors', // Cross-Origin Request Blocked: The Same Origin Policy disallows
+      //reading the remote resource at https://rexo.rextech.sk/session/login.
+      //(Reason: CORS header ‘Access-Control-Allow-Origin’ missing)
+      //mode: 'no-cors'
+    });
+    return fetch(request).then(function(response) {
+      console.log('LOGIN RES',response);
+      if (response.ok || response.type === 'opaque') {
+        //dispatch(loginRequestSuccess(username))
+        onSuccess && onSuccess() || true;
         return response;
       } else {
         throw Error(response.statusText);
       }
-    }).then(function(response) {
-      dispatch(loginRequestSuccess(username))
-    }).catch(function(error) {
-      console.log(error);
-      dispatch(loginRequestFailed(username))
-    });
-
+    }).catch((e) => {
+        onError && onError();
+        console.error('Login request failer:', e)
+        //dispatch(loginRequestFailed(username))
+    })
   }

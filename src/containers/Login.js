@@ -3,29 +3,33 @@ import { connect } from 'react-redux'
 import { login } from '../actions/user'
 import LoginForm from '../components/LoginForm';
 
+const Login = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object
+  },
 
-class Login extends Component {
-  static propTypes = {
+  propTypes: {
     dispatch: PropTypes.func.isRequired,
     isLoggingIn: PropTypes.bool,
     loggedIn: PropTypes.bool.isRequired,
     username: PropTypes.string,
     loginAt: PropTypes.number
-  }
-
+  },
 
   componentDidMount() {
     console.log('METHOD: Login componentDidMount')
-  }
+  },
 
   componentWillReceiveProps(nextProps) {
     console.log('METHOD: Login componentWillReceiveProps')
-  }
+  },
 
-  handleLoginSubmit = (values) => {
-      console.log('Login submit with values:', values);
-      this.props.dispatch(login(values.username, values.password));
-    }
+  handleLoginSubmit(values) {
+    console.log('Login submit with values:', values);
+    this.props.dispatch(login(values.username, values.password,()=>{
+      this.context.router.push('/')
+    }));
+  },
 
 
   render() {
@@ -37,11 +41,11 @@ class Login extends Component {
         {loggedIn ?
           <h4> Logged as user: {username} </h4> : null}
           <LoginForm onSubmit={this.handleLoginSubmit} />
-        
+
       </div>
     )
   }
-}
+})
 
 const mapStateToProps = state => {
   const user = state.user;
