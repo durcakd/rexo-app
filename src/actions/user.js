@@ -6,8 +6,6 @@ export const LOGIN_REQUEST_FAILED = 'LOGIN_REQUEST_FAILED'
 
 import {CTX_HOST} from '../config'
 
-//import rq from 'request-promise'
-
 const loginRequest = () => ({
   type: LOGIN_REQUEST
 })
@@ -44,7 +42,7 @@ export const login = (username, password, onSuccess, onError) => dispatch => {
       console.log('LOGIN RES',response);
       if (response.ok || response.type === 'opaque') {
         //dispatch(loginRequestSuccess(username))
-        onSuccess && onSuccess();
+        onSuccess && onSuccess() || true;
         return response;
       } else {
         throw Error(response.statusText);

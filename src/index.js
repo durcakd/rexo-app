@@ -1,55 +1,30 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
-import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { Router, Route, IndexRoute } from 'react-router'
 import { Provider } from 'react-redux'
-import { reducer as formReducer } from 'redux-form'
-import thunk from 'redux-thunk'
-import createLogger from 'redux-logger'
-import reducer from './reducers'
+import { store, history } from './utils/createStore'
+import { login } from './actions/user'
+
 import App from './containers/App'
 import Login from './containers/Login'
 import About from './components/About'
 import Repos from './components/Repos'
 import Repo from './components/Repo'
 import Home from './components/Home'
-import { login } from './actions/user'
-
 import DocProcessingMenu from './components/DocProcessingMenu'
 import BatchDocGenerating from './containers/business/BatchDocGenerating'
 import LawsuitsPlaning from './containers/business/LawsuitsPlaning'
 import PdfGenerating from './containers/business/PdfGenerating'
 
 
-
-const middleware = [ thunk ]
-if (process.env.NODE_ENV !== 'production') {
-  middleware.push(createLogger())
-}
-
-const store = createStore(
-  combineReducers({
-    ...reducer,
-    form: formReducer,
-    routing: routerReducer
-  }),
-  applyMiddleware(...middleware)
-)
-
-
-// Create an enhanced history that syncs navigation events with the store
-const history = syncHistoryWithStore(browserHistory, store)
-
 function requireCredentials(nextState, replace, next) {
   console.log("ON ENTER, requireCredentials");
   const query = nextState.location
-  console.log("ON ENTER, requireCredentials", query);
-
   store.dispatch(login(null, null, next, ()=>{
     replace('/login')
     next()
   }));
+  next()
 }
 
 
