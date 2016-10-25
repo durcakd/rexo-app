@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { login } from '../actions/user'
 import LoginForm from '../components/LoginForm';
 
-
 class Login extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -37,7 +36,7 @@ class Login extends Component {
         {loggedIn ?
           <h4> Logged as user: {username} </h4> : null}
           <LoginForm onSubmit={this.handleLoginSubmit} />
-        
+
       </div>
     )
   }
