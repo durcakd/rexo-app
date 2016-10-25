@@ -20,6 +20,7 @@ import PdfGenerating from './containers/business/PdfGenerating'
 function requireCredentials(nextState, replace, next) {
   console.log("ON ENTER, requireCredentials");
   const query = nextState.location
+  // TODO only if user not loged in store
   store.dispatch(login(null, null, next, ()=>{
     replace('/login')
     next()
