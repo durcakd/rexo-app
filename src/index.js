@@ -11,7 +11,7 @@ import About from './components/About'
 import Repos from './components/Repos'
 import Repo from './components/Repo'
 import Home from './components/Home'
-import DocProcessingMenu from './components/DocProcessingMenu'
+import DocProcessingSidebar from './components/DocProcessingSidebar'
 import BatchDocGenerating from './containers/business/BatchDocGenerating'
 import LawsuitsPlaning from './containers/business/LawsuitsPlaning'
 import PdfGenerating from './containers/business/PdfGenerating'
@@ -28,24 +28,18 @@ function requireCredentials(nextState, replace, next) {
   next()
 }
 
-
-function ErrorPage() {
-  return <h1>Oh no! Your auth failed!</h1>
-}
-
 render(
   <Provider store={store}>
     { /* Tell the Router to use our enhanced history */ }
     <Router history={history}>
       <Route path="/login" component={Login}/>
-      <Route path="/error" component={ErrorPage}/>
       <Route path="/" component={App} onEnter={requireCredentials}>
         <IndexRoute component={Home}/>
         <Route path="/about" component={About}/>
         <Route path="/repos" component={Repos}>
           <Route path="/repos/:userName/:repoName" component={Repo}/>
         </Route>
-        <Route path="/doc-process" component={DocProcessingMenu}>
+        <Route path="/doc-process" component={DocProcessingSidebar}>
           <Route path="/doc-process/batch-document-generating" component={BatchDocGenerating}/>
           <Route path="/doc-process/lawsuits-planing" component={LawsuitsPlaning}/>
           <Route path="/doc-process/pdf-generating" component={PdfGenerating}/>

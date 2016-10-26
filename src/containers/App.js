@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import {  } from '../actions'
 import NavLink from '../components/NavLink'
 
-import { Grid, Row, Col } from 'react-bootstrap';
-
 class App extends Component {
 
  //  constructor(props, context){
@@ -31,13 +29,7 @@ class App extends Component {
 
   render() {
     console.log('METHOD: app render')
-    const dummySentences = ['Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
-     'Donec hendrerit tempor tellus.', 'Donec pretium posuere tellus.',
-     'Proin quam nisl, tincidunt et, mattis eget, convallis nec, purus.',
-     'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
-    'Nulla posuere.', 'Donec vitae dolor.', 'Nullam tristique diam non turpis.',
-    'Cras placerat accumsan nulla.', 'Nullam rutrum.', 'Nam vestibulum accumsan nisl.'];
-    // const {  } = this.props
+      // const {  } = this.props
     return (
       <div>
         <ul role="nav">
@@ -47,17 +39,6 @@ class App extends Component {
           <li><NavLink to="/repos">Repos</NavLink></li>
           <li><NavLink to="/doc-process">Document Processing</NavLink></li>
         </ul>
-        <Grid>
-          <Row className="show-grid">
-            <Col sm={3} md={3}><br/>
-            {dummySentences.slice(0, 6).join(' ')}
-            </Col>
-            <Col sm={4} md={8}><br/>
-            {dummySentences.slice(0, 4).join(' ')}
-            </Col>
-          </Row>
-
-        </Grid>
         <h1>Rexotech main page</h1>
         {this.props.children}
       </div>
