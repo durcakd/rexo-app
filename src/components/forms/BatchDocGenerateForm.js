@@ -11,10 +11,10 @@ const BatchDocGenerateForm = (props) => {
           <InputFieldStyled name="filenameColumn" placeholder="FilenameColumn"/>
         </FormRowWithLabel>
         <FormRowWithLabel label="Template">
-          <Field  name="template" placeholder="template" type="file" component="input" />
+          <Field  name="template" type="file" component="input" />
         </FormRowWithLabel>
         <FormRowWithLabel label="CSV">
-          <Field name="csv" placeholder="CSV" type="file" component="input" />
+          <Field name="csv" type="file" component="input" />
         </FormRowWithLabel>
         <FormRowSubmit label="Submit" {...props}/>
     </form>

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 //import { login } from '../actions/user'
-//import PdfGeneratingForm from '../components/business/PdfGeneratingForm';
+import PdfGeneratingForm from '../../components/forms/PdfGeneratingForm';
 
 
 class PdfGenerating extends Component {
@@ -20,7 +20,7 @@ class PdfGenerating extends Component {
     return (
       <div>
         <h2>Pdf Generating</h2>
-        { /*<PdfGeneratingForm onSubmit={this.handleFormSubmit} /> */ }
+        <PdfGeneratingForm onSubmit={this.handleFormSubmit} />
       </div>
     )
   }

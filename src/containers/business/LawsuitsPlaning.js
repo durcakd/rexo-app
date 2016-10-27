@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 //import { login } from '../actions/user'
-//import LawsuitsPlaningForm from '../components/business/LawsuitsPlaningForm';
+import LawsuitsPlaningForm from '../../components/forms/LawsuitsPlaningForm';
 
 
 class LawsuitsPlaning extends Component {
@@ -20,7 +20,7 @@ class LawsuitsPlaning extends Component {
     return (
       <div>
         <h2>Lawsuits Planing</h2>
-        { /*<LawsuitsPlaningForm onSubmit={this.handleFormSubmit} /> */ }
+        <LawsuitsPlaningForm onSubmit={this.handleFormSubmit} />
       </div>
     )
   }
