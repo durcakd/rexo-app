@@ -4,7 +4,6 @@ import { Field, reduxForm } from 'redux-form';
 import { Button, Row, Col, Panel } from 'react-bootstrap'
 
 
-
 const FieldBS = ({ name, type, label}) => (
   <Row className="form-group">
     <Col sm={2} className="control-label">

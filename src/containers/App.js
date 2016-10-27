@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import {  } from '../actions'
 import NavLink from '../components/NavLink'
+import { Grid, Row, Col, Navbar, Nav, NavItem } from 'react-bootstrap';
+
 
 class App extends Component {
 
@@ -32,14 +34,17 @@ class App extends Component {
       // const {  } = this.props
     return (
       <div>
-        <ul role="nav">
-          <li><NavLink to="/" onlyActiveOnIndex={true}>Home</NavLink></li>
-          <li><NavLink to="/about">About</NavLink></li>
-          <li><NavLink to="/login">Login</NavLink></li>
-          <li><NavLink to="/repos">Repos</NavLink></li>
-          <li><NavLink to="/doc-process">Document Processing</NavLink></li>
-        </ul>
-        <h1>Rexotech main page</h1>
+      <Navbar>
+       <Navbar.Header>
+         <Navbar.Brand>
+           <NavLink to="/" onlyActiveOnIndex={true}>Rexotech</NavLink>
+         </Navbar.Brand>
+       </Navbar.Header>
+       <Nav className="nav">
+         <NavItem eventKey={1}><NavLink to="/doc-process">Document Processing</NavLink></NavItem>
+         <NavItem eventKey={1}><NavLink to="/login">Login</NavLink></NavItem>
+       </Nav>
+     </Navbar>
         {this.props.children}
       </div>
 
