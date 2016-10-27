@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import BatchDocGenerateForm from '../../components/forms/BatchDocGenerateForm'
 //import { login } from '../actions/user'
 //import BatchDocGeneratingForm from '../components/business/BatchDocGeneratingForm';
 
@@ -20,7 +21,7 @@ class BatchDocGenerating extends Component {
     return (
       <div>
         <h2>Batch Document Generating</h2>
-        { /*<BatchDocGeneratingForm onSubmit={this.handleFormSubmit} /> */ }
+        <BatchDocGenerateForm onSubmit={this.handleFormSubmit} />
       </div>
     )
   }

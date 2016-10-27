@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { login } from '../actions/user'
-import LoginFormBS from '../components/LoginFormBS';
+import LoginForm from '../components/forms/LoginForm';
 
 const Login = React.createClass({
   contextTypes: {
@@ -40,8 +40,9 @@ const Login = React.createClass({
       <div>
         {loggedIn ?
           <h4> Logged as user: {username} </h4> : null}
-          <LoginFormBS onSubmit={this.handleLoginSubmit} />
-
+          <div className="jumbotron" bsStyle="primary">
+            <LoginForm onSubmit={this.handleLoginSubmit} />
+          </div>
       </div>
     )
   }
