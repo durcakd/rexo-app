@@ -1,19 +1,22 @@
 
 import React from 'react';
-import { reduxForm } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import { FormRowWithLabel, InputFieldStyled, FormRowSubmit } from './FormUtil'
 
 const BatchDocGenerateForm = (props) => {
   const { handleSubmit} = props
   return (
     <form className="form-horizontal" onSubmit={handleSubmit}>
-        <FormRowWithLabel label="Username">
-          <InputFieldStyled name="username" placeholder="Username"/>
+        <FormRowWithLabel label="Filename column">
+          <InputFieldStyled name="filenameColumn" placeholder="FilenameColumn"/>
         </FormRowWithLabel>
-        <FormRowWithLabel label="Password">
-          <InputFieldStyled name="password" placeholder="Password" type="password"/>
+        <FormRowWithLabel label="Template">
+          <Field  name="template" placeholder="template" type="file" component="input" />
         </FormRowWithLabel>
-        <FormRowSubmit label="SUUUU" {...props}/>
+        <FormRowWithLabel label="CSV">
+          <Field name="csv" placeholder="CSV" type="file" component="input" />
+        </FormRowWithLabel>
+        <FormRowSubmit label="Submit" {...props}/>
     </form>
   )
 }
