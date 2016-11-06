@@ -29,18 +29,14 @@ export const login = (username, password, onSuccess, onError) => dispatch => {
     const url = CTX_HOST+'/session/login';
     const hash = new Buffer(`${username}:${password}`).toString('base64')
     var request = new Request(url, {
+      credentials: 'include',
       headers: new Headers({
         'Authorization': `Basic ${hash}`,
-      }),
-      credentials: 'include',
-      //mode: 'cors', // Cross-Origin Request Blocked: The Same Origin Policy disallows
-      //reading the remote resource at https://rexo.rextech.sk/session/login.
-      //(Reason: CORS header ‘Access-Control-Allow-Origin’ missing)
-      //mode: 'no-cors'
+      })
     });
     return fetch(request).then(function(response) {
       console.log('LOGIN RES',response);
-      if (response.ok || response.type === 'opaque') {
+      if (response.ok) {
         //dispatch(loginRequestSuccess(username))
         onSuccess && onSuccess() || true;
         return response;

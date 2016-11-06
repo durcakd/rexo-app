@@ -2,13 +2,18 @@
 var express = require('express');
 var bodyParser = require("body-parser"); // Body parser for fetch posted data
 var fileUpload = require('express-fileupload');
+var path = require("path");
+var fs = require("fs");
+var multer  = require('multer')
+var upload = multer({ dest: 'data/' })
 
 
 var app = express();
 
-//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({uploadDir:'./data'));
 //app.use(bodyParser.json());
-app.use(fileUpload());
+//app.use(fileUpload());
 
 
 
@@ -36,8 +41,49 @@ app.get('/session/login',function(req,res){
 	}
 });
 
+var batchDocUploads = upload.fields([{ name: 'csv', maxCount: 1 }, { name: 'template', maxCount: 1 }]);
+
+app.post('/lawsuit/batch-documents', batchDocUploads, function(req, res) {
+    console.log('------------------------------------');
+    console.log('BODY',req.body);
+    console.log('FILES',req.files);
+    var csv = req.files.csv[0];
+    fs.rename(csv.path, path.join(__dirname, "data/"+ csv.originalname), function(err) {
+           if (err) {
+               res.status(500).send(err);
+           }
+           else {
+              console.log('File uploaded');
+              //  res.send('File uploaded!');
+               sendChunk(res);
+           }
+       });
+});
 
 
+// app.get('/big', function(req, res) {
+//     // res.sendFile('/home/helo/workspace/react/rexo-app/testServer/downloads/01 - Intro.flac')
+//     //res.sendFile('/home/helo/workspace/react/rexo-app/testServer/downloads/f1.mp4')
+// });
+
+app.get('/chunk', function(req, res) {
+  sendChunk(res);
+});
+
+function sendChunk(res, i, delay) {
+  delay || (delay=100)
+  i!=null || (i=200)
+  if (i > 0) {
+    setTimeout(() => {
+      res.write("chunk -----------------------------------------------------------------"+i);
+      res.flush()
+      console.log('send chunk',i);
+      sendChunk(res, i-1)
+    }, delay)
+  } else {
+    res.end();
+  }
+}
 
 var server = app.listen(4000, function() {
 	  var host = server.address().address;

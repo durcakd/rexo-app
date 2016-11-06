@@ -2,3 +2,4 @@
 
 
 export const CTX_HOST = 'http://localhost:4000'
+//export const CTX_HOST = ''
